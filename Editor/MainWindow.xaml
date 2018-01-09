@@ -6,12 +6,19 @@
         xmlns:local="clr-namespace:Editor"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Menu>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Open"></MenuItem>
+                <MenuItem Header="Open" Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="Exit"></MenuItem>
             </MenuItem>
         </Menu>
-    </Grid>
+        <TabControl DockPanel.Dock="Bottom">
+            <TabItem Header="General">
+                <Grid Name="RenderRegion"/>
+            </TabItem>
+            <TabItem Header="Security" />
+            <TabItem Header="Details" />
+        </TabControl>
+    </DockPanel>
 </Window>

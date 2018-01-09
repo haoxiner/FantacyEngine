@@ -9,9 +9,18 @@
     <ClInclude Include="FantacyEngine.h">
       <Filter>Interface</Filter>
     </ClInclude>
+    <ClInclude Include="EngineSample.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dx12.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FantacyEngine.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSample.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
   </ItemGroup>
