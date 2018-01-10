@@ -23,6 +23,7 @@ public:
 	void OnUpdate();
 	void OnRender();
 	void OnDestroy();
+	static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 private:
 	float aspectRatio_;
 	static const UINT FrameCount = 2;
@@ -44,6 +45,7 @@ private:
 	CD3DX12_VIEWPORT viewport_;
 
 	HWND hWnd_;
+	HWND hWndParent_;
 	int x_ = 0, y_ = 0;
 	UINT width_;
 	UINT height_;

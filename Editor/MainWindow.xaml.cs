@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace Editor
 {
@@ -31,15 +32,28 @@ namespace Editor
         {
             if (!initialized) {
                 initialized = true;
+                
                 HwndSource source = (HwndSource)HwndSource.FromVisual(RenderRegion);
                 IntPtr hWnd = source.Handle;
-                var p = RenderRegion.TranslatePoint(new Point(0.0, 0.0), this);
-                //MessageBox.Show(p.X.ToString() + ", " + p.Y.ToString());
-                Bridge.Bridge.Initialize(100);
-                Bridge.Bridge.SetRenderWindow(hWnd, Convert.ToInt32(p.X), Convert.ToInt32(p.Y),Convert.ToInt32(RenderRegion.ActualWidth), Convert.ToInt32(RenderRegion.ActualHeight));
-                Bridge.Bridge.Render();
-                //MessageBox.Show(Convert.ToInt32(RenderRegion.ActualWidth).ToString() + ", " + Convert.ToInt32(RenderRegion.ac).ToString());
+                int width = Convert.ToInt32(RenderRegion.ActualWidth);
+                int height = Convert.ToInt32(RenderRegion.ActualHeight);
+                object args = new object[3] { hWnd, width, height};
+                Thread newThread = new Thread(DoWork);
+                newThread.Start(args);
             }
+        }
+
+        private static void DoWork(Object data)
+        {
+            object[] args = (object[])data;
+            IntPtr hWnd = (IntPtr)args[0];
+            int width = (int)args[1];
+            int height = (int)args[2];
+            //MessageBox.Show(width + ", " + height);
+            Bridge.Bridge.Initialize(100);
+            Bridge.Bridge.SetRenderWindow(hWnd, 0, 0, width, height);
+            //Bridge.Bridge.Render();
+            //MessageBox.Show(Convert.ToInt32(RenderRegion.ActualWidth).ToString() + ", " + Convert.ToInt32(RenderRegion.ac).ToString());
         }
     }
 }

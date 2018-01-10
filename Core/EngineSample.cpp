@@ -8,7 +8,7 @@ inline void ThrowIfFailed(HRESULT hr)
 }
 
 EngineSample::EngineSample(HWND hWnd, int x, int y, int width, int height):
-	hWnd_(hWnd), x_(x), y_(y), width_(width),height_(height),
+	hWndParent_(hWnd),x_(x), y_(y), width_(width),height_(height),
 	viewport_(x,y,width,height)
 {
 	aspectRatio_ = static_cast<float>(width) / static_cast<float>(height);
@@ -16,9 +16,95 @@ EngineSample::EngineSample(HWND hWnd, int x, int y, int width, int height):
 
 void EngineSample::OnCreate()
 {
+	HINSTANCE hInstance = (HINSTANCE)GetWindowLong(hWndParent_, GWL_HINSTANCE);
+	WNDCLASSEX windowClass = { 0 };
+	windowClass.cbSize = sizeof(WNDCLASSEX);
+	windowClass.style = CS_HREDRAW | CS_VREDRAW;
+	windowClass.lpfnWndProc = WindowProc;
+	windowClass.hInstance = hInstance;
+	windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	windowClass.lpszClassName = L"DXSampleClass";
+	RegisterClassEx(&windowClass);
+
+	RECT windowRect = { 0, 0, static_cast<LONG>(width_), static_cast<LONG>(height_) };
+	AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, FALSE);
+
+	// Create the window and store a handle to it.
+	hWnd_ = CreateWindow(
+		windowClass.lpszClassName,
+		L"Fantacy Engine",
+		WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		windowRect.right - windowRect.left,
+		windowRect.bottom - windowRect.top,
+		nullptr,		// We have no parent window.
+		nullptr,		// We aren't using menus.
+		hInstance,
+		this); //TODO: pass render system to lparam in the future.
+
 	LoadPipeline();
 	LoadAssets();
+
+	ShowWindow(hWnd_, SW_SHOW);
+
+	// Main sample loop.
+	MSG msg = {};
+	while (msg.message != WM_QUIT) {
+		// Process any messages in the queue.
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+
+	
 }
+
+// Main message handler for the sample.
+LRESULT CALLBACK EngineSample::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	EngineSample* pSample = reinterpret_cast<EngineSample*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+
+	switch (message) {
+	case WM_CREATE:
+	{
+		// Save the DXSample* passed in to CreateWindow.
+		LPCREATESTRUCT pCreateStruct = reinterpret_cast<LPCREATESTRUCT>(lParam);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pCreateStruct->lpCreateParams));
+		//SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) & ~WS_CAPTION);
+		//SetWindowPos(hWnd, NULL, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOZORDER | SWP_DRAWFRAME);
+	}
+	return 0;
+
+	case WM_KEYDOWN:
+		if (pSample) {
+			//pSample->OnKeyDown(static_cast<UINT8>(wParam));
+		}
+		return 0;
+
+	case WM_KEYUP:
+		if (pSample) {
+			//pSample->OnKeyUp(static_cast<UINT8>(wParam));
+		}
+		return 0;
+
+	case WM_PAINT:
+		if (pSample) {
+			pSample->OnUpdate();
+			pSample->OnRender();
+		}
+		return 0;
+
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+	}
+
+	// Handle any messages the switch statement didn't.
+	return DefWindowProc(hWnd, message, wParam, lParam);
+}
+
 
 void EngineSample::OnUpdate()
 {
