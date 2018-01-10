@@ -2,8 +2,8 @@
 class Renderer
 {
 public:
-	Renderer();
-	~Renderer();
+	Renderer() = default;
+	~Renderer() = default;
 
 private:
 

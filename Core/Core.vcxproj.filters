@@ -10,6 +10,12 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{a66762f4-f9ed-40b0-a1d9-247c04900523}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{df78fe1f-44d3-4010-a665-910e8bce8753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3D12">
+      <UniqueIdentifier>{5a0ed500-40f8-4439-8613-42c6077ac899}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FantacyEngine.h">
@@ -18,14 +24,23 @@
     <ClInclude Include="EngineSample.h">
       <Filter>Interface</Filter>
     </ClInclude>
-    <ClInclude Include="d3dx12.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
     <ClInclude Include="PerformanceTimer.h">
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics3D.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dx12.h">
+      <Filter>D3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D12HelperFunctions.h">
+      <Filter>D3D12</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -37,6 +52,12 @@
     </ClCompile>
     <ClCompile Include="PerformanceTimer.cpp">
       <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics3D.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

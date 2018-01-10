@@ -1,6 +1,6 @@
 #include "FantacyEngine.h"
-#include "EngineSample.h"
-static EngineSample* app;
+#include "Engine.h"
+static Engine* app;
 
 __declspec(dllexport) int Initialize(int a)
 {
@@ -18,11 +18,11 @@ __declspec(dllexport) void Shutdown()
 
 __declspec(dllexport) void SetRenderWindow(HWND hWnd, int x, int y, int width, int height)
 {
-	app = new EngineSample(hWnd, x, y, width, height);
-	app->OnCreate();
+	app = new Engine;
+	HINSTANCE hInstance = (HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE);
+	app->Run(hInstance);
 }
 
 __declspec(dllexport) void Render()
 {
-	app->OnRender();
 }
