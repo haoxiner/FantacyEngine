@@ -13,6 +13,8 @@
 #include <string>
 #include <wrl.h>
 
+#include "PerformanceTimer.h"
+
 using Microsoft::WRL::ComPtr;
 
 class EngineSample
@@ -50,6 +52,10 @@ private:
 	UINT width_;
 	UINT height_;
 	bool useWarpDevice_ = false;
+
+	PerformanceTimer timer_;
+	float deltaTime_ = 0.0f;
+	float totalTime_ = 0.0f;
 
 	void LoadPipeline();
 	void LoadAssets();

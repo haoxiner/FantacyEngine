@@ -140,10 +140,13 @@
     <ClInclude Include="d3dx12.h" />
     <ClInclude Include="EngineSample.h" />
     <ClInclude Include="FantacyEngine.h" />
+    <ClInclude Include="PerformanceTimer.h" />
+    <ClInclude Include="Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineSample.cpp" />
     <ClCompile Include="FantacyEngine.cpp" />
+    <ClCompile Include="PerformanceTimer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

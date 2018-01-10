@@ -4,6 +4,12 @@
     <Filter Include="Interface">
       <UniqueIdentifier>{5e1f201e-d8e5-4384-be28-f7132a112dcb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{59380f97-2c20-45db-8cff-7122262a3f7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{a66762f4-f9ed-40b0-a1d9-247c04900523}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FantacyEngine.h">
@@ -15,6 +21,12 @@
     <ClInclude Include="d3dx12.h">
       <Filter>Interface</Filter>
     </ClInclude>
+    <ClInclude Include="PerformanceTimer.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FantacyEngine.cpp">
@@ -22,6 +34,9 @@
     </ClCompile>
     <ClCompile Include="EngineSample.cpp">
       <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="PerformanceTimer.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

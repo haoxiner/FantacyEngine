@@ -37,7 +37,7 @@ namespace Editor
                 IntPtr hWnd = source.Handle;
                 int width = Convert.ToInt32(RenderRegion.ActualWidth);
                 int height = Convert.ToInt32(RenderRegion.ActualHeight);
-                object args = new object[3] { hWnd, width, height};
+                object args = new object[3] { hWnd, 800, 600};
                 Thread newThread = new Thread(DoWork);
                 newThread.Start(args);
             }

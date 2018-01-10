@@ -108,6 +108,8 @@ LRESULT CALLBACK EngineSample::WindowProc(HWND hWnd, UINT message, WPARAM wParam
 
 void EngineSample::OnUpdate()
 {
+	deltaTime_ = timer_.Tick();
+	totalTime_ += deltaTime_;
 }
 
 void EngineSample::OnRender()
@@ -301,7 +303,7 @@ void EngineSample::PopulateCommandList()
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(rtvDescHeap_->GetCPUDescriptorHandleForHeapStart(), frameIndex_, rtvDescSize_);
 
 	// Record commands.
-	const float clearColor[] = { 1.0f, 0.4f, 0.4f, 1.0f };
+	const float clearColor[] = { 0.4f, 0.0f, std::sinf(totalTime_), 1.0f };
 	commandList_->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
 
 	// Indicate that the back buffer will now be used to present.
